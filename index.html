@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görev Yönetimi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Görev Yönetimi</h1>
+        
+        <form id="gorevForm">
+            <div class="form-group">
+                <label for="baslik">Başlık:</label>
+                <input type="text" id="baslik" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="aciklama">Açıklama:</label>
+                <textarea id="aciklama"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Öncelik:</label>
+                <div class="radio-group">
+                    <input type="radio" name="oncelik" value="düşük" id="dusuk">
+                    <label for="dusuk">Düşük</label>
+                    
+                    <input type="radio" name="oncelik" value="orta" id="orta">
+                    <label for="orta">Orta</label>
+                    
+                    <input type="radio" name="oncelik" value="yüksek" id="yuksek">
+                    <label for="yuksek">Yüksek</label>
+                </div>
+            </div>
+            
+            <button type="submit">Görev Ekle</button>
+        </form>
+
+        <div class="filtreler">
+            <button id="tamamlananlariGoster">Sadece Tamamlananları Göster</button>
+            <select id="siralama">
+                <option value="">Sıralama</option>
+                <option value="dusuk">Öncelik: Düşük → Yüksek</option>
+                <option value="yuksek">Öncelik: Yüksek → Düşük</option>
+            </select>
+        </div>
+
+        <div id="gorevListesi"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 
