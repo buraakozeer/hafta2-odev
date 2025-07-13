@@ -1,23 +1,18 @@
-// DOM elementlerini seçme
 const gorevForm = document.getElementById('gorevForm');
 const gorevListesi = document.getElementById('gorevListesi');
 const tamamlananlariGoster = document.getElementById('tamamlananlariGoster');
 const siralama = document.getElementById('siralama');
 
-// Görevleri tutacak dizi
 let gorevler = [];
 
-// Form gönderildiğinde
 gorevForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
     try {
-        // Form verilerini al
         const baslik = document.getElementById('baslik').value;
         const aciklama = document.getElementById('aciklama').value;
         const oncelik = document.querySelector('input[name="oncelik"]:checked')?.value;
         
-        // Form doğrulama
         if (!baslik.trim()) {
             throw new Error('Başlık alanı boş olamaz!');
         }
@@ -26,7 +21,6 @@ gorevForm.addEventListener('submit', function(e) {
             throw new Error('Lütfen bir öncelik seçin!');
         }
         
-        // Yeni görev oluştur
         const yeniGorev = {
             id: Date.now(),
             baslik,
@@ -35,21 +29,16 @@ gorevForm.addEventListener('submit', function(e) {
             tamamlandi: false
         };
         
-        // Görevi diziye ekle
         gorevler.push(yeniGorev);
         
-        // Görevi ekranda göster
         gorevleriGoster();
         
-        // Formu temizle
         gorevForm.reset();
         
-        // Varsa hata mesajını temizle
         const hataMesaji = document.querySelector('.hata');
         if (hataMesaji) hataMesaji.remove();
         
     } catch (error) {
-        // Hata mesajını göster
         const hataMesaji = document.createElement('div');
         hataMesaji.className = 'hata';
         hataMesaji.textContent = error.message;
@@ -57,15 +46,11 @@ gorevForm.addEventListener('submit', function(e) {
     }
 });
 
-// Görevleri ekranda göster
 function gorevleriGoster(filtreliGorevler = null) {
-    // Gösterilecek görevleri belirle
     const gosterilecekGorevler = filtreliGorevler || gorevler;
     
-    // Görev listesini temizle
     gorevListesi.innerHTML = '';
     
-    // Her görevi ekrana ekle
     gosterilecekGorevler.forEach(gorev => {
         const gorevDiv = document.createElement('div');
         gorevDiv.className = `gorev-item ${gorev.tamamlandi ? 'tamamlandi' : ''}`;
@@ -88,7 +73,6 @@ function gorevleriGoster(filtreliGorevler = null) {
     });
 }
 
-// Görevi tamamla/geri al
 function goreviTamamla(id) {
     const gorev = gorevler.find(g => g.id === id);
     if (gorev) {
@@ -97,13 +81,11 @@ function goreviTamamla(id) {
     }
 }
 
-// Görevi sil
 function goreviSil(id) {
     gorevler = gorevler.filter(g => g.id !== id);
     gorevleriGoster();
 }
 
-// Tamamlananları göster/gizle
 let sadeceTamamlananlar = false;
 tamamlananlariGoster.addEventListener('click', function() {
     sadeceTamamlananlar = !sadeceTamamlananlar;
@@ -117,7 +99,6 @@ tamamlananlariGoster.addEventListener('click', function() {
     }
 });
 
-// Önceliğe göre sırala
 siralama.addEventListener('change', function() {
     const siralamaTuru = this.value;
     
